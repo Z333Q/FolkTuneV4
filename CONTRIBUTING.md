@@ -21,4 +21,4 @@ Please use the GitHub issue tracker to report bugs or suggest features.
 
 ## Contact
 
-For additional questions, feel free to contact [email@example.com](mailto:email@example.com).
+For additional questions, feel free to contact [zeshan@natureofcommerce.com](mailto:zeshan@natureofcommerce.com).
