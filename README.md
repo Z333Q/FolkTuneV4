@@ -64,4 +64,5 @@ We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for more detail
 
 ## Contact
 
-For issues or inquiries, please reach out via GitHub issues or [email@example.com](mailto:email@example.com).
+For issues or inquiries, please reach out via GitHub issues or zeshan@natureofcommerce.com
+
