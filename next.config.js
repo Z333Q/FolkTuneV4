@@ -1,4 +1,3 @@
-
 const withNetlify = require('@netlify/plugin-nextjs');
 
 module.exports = withNetlify({
@@ -6,4 +5,6 @@ module.exports = withNetlify({
   experimental: {
     outputStandalone: true,
   },
+  debug: true,
 });
+
