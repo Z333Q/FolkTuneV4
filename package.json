@@ -32,7 +32,8 @@
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.22.4",
-    "next-auth": "4.24.10"
+    "next-auth": "4.24.10",
+    "@netlify/plugin-nextjs": "^5.8.1"
   },
   "devDependencies": {
     "@types/node": "^20.11.17",
