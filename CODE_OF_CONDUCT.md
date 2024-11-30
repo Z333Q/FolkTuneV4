@@ -16,4 +16,4 @@ Examples of unacceptable behavior:
 
 ## Enforcement
 
-Instances of abusive behavior can be reported to [email@example.com](mailto:email@example.com). All complaints will be reviewed and resolved promptly.
+Instances of abusive behavior can be reported to [zeshan@natureofcommerce.com](mailto:zeshan@natureofcommerce.com). All complaints will be reviewed and resolved promptly.

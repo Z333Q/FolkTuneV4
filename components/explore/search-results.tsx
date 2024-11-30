@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { Song, Category, searchFolkMusic } from '@/lib/data/categories';
+import { Song, Category, searchFolk } from '@/lib/data/categories';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Play, Pause, ChevronRight } from 'lucide-react';
@@ -21,7 +21,7 @@ export function SearchResults({ query }: SearchResultsProps) {
 
   useEffect(() => {
     if (query.trim()) {
-      const searchResults = searchFolkMusic(query);
+      const searchResults = searchFolk(query);
       setResults(searchResults);
     } else {
       setResults({ categories: [], songs: [] });

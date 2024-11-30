@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-const SubcategoryHero = () => {
+const HeroComponent = () => {
     return (
         <div>
             <h1>Subcategory Hero Placeholder</h1>
@@ -10,4 +10,4 @@ const SubcategoryHero = () => {
     );
 };
 
-export default SubcategoryHero;
+export default HeroComponent;
