@@ -1,9 +1,9 @@
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
-import { AuthOptions } from "next-auth";
 
-export const authOptions: AuthOptions = {
+// Define authOptions inline with NextAuthOptions
+const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID ?? "",
@@ -20,15 +20,15 @@ export const authOptions: AuthOptions = {
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   pages: {
-    signIn: '/auth',
-    signOut: '/auth',
-    error: '/auth/error',
-    verifyRequest: '/auth/verify-request',
+    signIn: "/auth",
+    signOut: "/auth",
+    error: "/auth/error",
+    verifyRequest: "/auth/verify-request",
   },
   callbacks: {
     async session({ session, token }) {
       if (token && session.user) {
-        session.user.id = token.sub ?? '';
+        session.user.id = token.sub ?? "";
       }
       return session;
     },
@@ -42,6 +42,7 @@ export const authOptions: AuthOptions = {
   },
 };
 
+// Use NextAuth as the default export, providing the authOptions directly
 const handler = NextAuth(authOptions);
-export { handler as GET, handler as POST };
 
+export { handler as GET, handler as POST };
