@@ -1,4 +1,4 @@
-const withNetlify = require('@netlify/plugin-nextjs');
+const withNetlify = import('@netlify/plugin-nextjs');
 
 module.exports = withNetlify({
   reactStrictMode: true,
