@@ -228,3 +228,5 @@ export function searchCategories(query: string) {
     )
   );
 }
+
+export const searchFolk = {}; // Add actual implementation
