@@ -1,69 +1,86 @@
+import { Metadata } from 'next';
 import { categories } from '@/lib/data/categories';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Globe, Music, Info } from 'lucide-react';
-import { CategoryHero } from '@/components/explore/category-hero';
-import { SubcategoryList } from '@/components/explore/subcategory-list';
+import { SongList } from '@/components/explore/song-list';
+import SubcategoryHero from '@/components/explore/subcategory-hero';
 import { CulturalContext } from '@/components/explore/cultural-context';
-import { notFound } from 'next/navigation';
 
-export function generateStaticParams() {
-  return categories.map((category) => ({
-    category: category.name.toLowerCase().replace(/\s+/g, '-'),
-  }));
+// Define types for category, subcategory, and song
+type Song = {
+  id: string;
+  title: string;
+  artist?: string;
+};
+
+type Subcategory = {
+  id: string;
+  name: string;
+  description?: string;
+  image?: string;
+  songs?: Song[];
+};
+
+type Category = {
+  id: string;
+  name: string;
+  image?: string;
+  subcategories: Subcategory[];
+};
+
+export async function generateMetadata({ params }: { params: { category: string; subcategory: string } }): Promise<Metadata> {
+  const category = categories.find(c => c.id === params.category);
+  const subcategory = category?.subcategories.find(s => s.id === params.subcategory);
+
+  if (!category || !subcategory) {
+    return {
+      title: 'Not Found',
+      description: 'The requested folk music category could not be found.'
+    };
+  }
+
+  return {
+    title: `${subcategory.name} - ${category.name} | FolkTune`,
+    description: subcategory.description,
+    openGraph: {
+      title: `${subcategory.name} - Traditional Folk Music`,
+      description: subcategory.description,
+      images: [subcategory.image || category.image || ''],
+    },
+  };
 }
 
-export default function CategoryPage({ params }: { params: { category: string } }) {
-  const category = categories.find(
-    (c) => c.name.toLowerCase().replace(/\s+/g, '-') === params.category
-  );
+export function generateStaticParams(): Array<{ category: string; subcategory: string }> {
+  const paths: Array<{ category: string; subcategory: string }> = [];
+  categories.forEach((category) => {
+    category.subcategories.forEach((subcategory) => {
+      paths.push({
+        category: category.id,
+        subcategory: subcategory.id,
+      });
+    });
+  });
+  return paths;
+}
 
-  if (!category) {
-    notFound();
+export default function SubcategoryPage({ params }: { params: { category: string; subcategory: string } }) {
+  const category = categories.find(c => c.id === params.category);
+  const subcategory = category?.subcategories.find(s => s.id === params.subcategory);
+
+  if (!category || !subcategory) {
+    return <div>Category not found</div>;
   }
 
   return (
     <div className="min-h-screen">
-      <CategoryHero category={category} />
+      <SubcategoryHero category={category} subcategory={subcategory} />
       
       <div className="container mx-auto px-4 py-12">
-        {/* Overview Section */}
         <section className="mb-16">
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="p-6">
-              <Globe className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2">Origin</h3>
-              <p className="text-muted-foreground">
-                Discover the geographical and cultural origins of {category.name}.
-              </p>
-            </Card>
-            
-            <Card className="p-6">
-              <Music className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2">Musical Style</h3>
-              <p className="text-muted-foreground">
-                Learn about the unique characteristics and instruments.
-              </p>
-            </Card>
-            
-            <Card className="p-6">
-              <Info className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-lg font-semibold mb-2">Cultural Impact</h3>
-              <p className="text-muted-foreground">
-                Understand the historical and social significance.
-              </p>
-            </Card>
-          </div>
+          <h2 className="text-3xl font-bold mb-8">Songs</h2>
+          {/* Use a fallback to ensure songs is always an array */}
+          <SongList songs={subcategory.songs || []} />
         </section>
 
-        {/* Cultural Context */}
-        <CulturalContext category={category} />
-
-        {/* Subcategories */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-8">Traditions & Styles</h2>
-          <SubcategoryList subcategories={category.subcategories} />
-        </section>
+        <CulturalContext category={category} subcategory={subcategory} />
       </div>
     </div>
   );
