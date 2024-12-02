@@ -26,8 +26,9 @@ export async function generateMetadata({ params }: { params: { category: string;
   };
 }
 
-export function generateStaticParams() {
-  const paths = [];
+export function generateStaticParams(): Array<{ category: string; subcategory: string }> {
+  // Explicitly define the type for paths
+  const paths: Array<{ category: string; subcategory: string }> = [];
   categories.forEach((category) => {
     category.subcategories.forEach((subcategory) => {
       paths.push({
