@@ -69,6 +69,9 @@ export default function SubcategoryPage({ params }: { params: { category: string
     return <div>Category not found</div>;
   }
 
+  // Ensure songs is always defined
+  const songs: Song[] = subcategory.songs || [];
+
   return (
     <div className="min-h-screen">
       <SubcategoryHero category={category} subcategory={subcategory} />
@@ -76,12 +79,8 @@ export default function SubcategoryPage({ params }: { params: { category: string
       <div className="container mx-auto px-4 py-12">
         <section className="mb-16">
           <h2 className="text-3xl font-bold mb-8">Songs</h2>
-          {/* Conditionally render SongList only if songs are defined */}
-          {subcategory.songs ? (
-            <SongList songs={subcategory.songs} />
-          ) : (
-            <p>No songs available for this subcategory.</p>
-          )}
+          {/* Safely pass the songs array */}
+          <SongList songs={songs} />
         </section>
 
         <CulturalContext category={category} subcategory={subcategory} />
@@ -89,3 +88,4 @@ export default function SubcategoryPage({ params }: { params: { category: string
     </div>
   );
 }
+
