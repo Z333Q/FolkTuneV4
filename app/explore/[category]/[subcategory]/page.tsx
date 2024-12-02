@@ -4,6 +4,22 @@ import { SongList } from '@/components/explore/song-list';
 import SubcategoryHero from '@/components/explore/subcategory-hero';
 import { CulturalContext } from '@/components/explore/cultural-context';
 
+// Define types for category and subcategory
+type Subcategory = {
+  id: string;
+  name: string;
+  description?: string;
+  image?: string;
+  songs?: Array<any>;
+};
+
+type Category = {
+  id: string;
+  name: string;
+  image?: string;
+  subcategories: Subcategory[];
+};
+
 export async function generateMetadata({ params }: { params: { category: string; subcategory: string } }): Promise<Metadata> {
   const category = categories.find(c => c.id === params.category);
   const subcategory = category?.subcategories.find(s => s.id === params.subcategory);
@@ -27,7 +43,6 @@ export async function generateMetadata({ params }: { params: { category: string;
 }
 
 export function generateStaticParams(): Array<{ category: string; subcategory: string }> {
-  // Explicitly define the type for paths
   const paths: Array<{ category: string; subcategory: string }> = [];
   categories.forEach((category) => {
     category.subcategories.forEach((subcategory) => {
