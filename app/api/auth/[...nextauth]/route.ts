@@ -1,9 +1,9 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+
+import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
 
-// Define authOptions inline with NextAuthOptions
-export const authOptions: NextAuthOptions = {
+const authOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID ?? "",
@@ -42,7 +42,6 @@ export const authOptions: NextAuthOptions = {
   },
 };
 
-// Use NextAuth as the default export, providing the authOptions directly
+// Explicitly export HTTP methods
 const handler = NextAuth(authOptions);
-
 export { handler as GET, handler as POST };
