@@ -69,8 +69,8 @@ export default function SubcategoryPage({ params }: { params: { category: string
     return <div>Category not found</div>;
   }
 
-  // Enforce a fallback for songs
-  const songs: Song[] = subcategory.songs || []; // Always ensure songs is an array
+  // Enforce a fallback to ensure songs is always an array
+  const songs: Song[] = subcategory.songs ?? []; // Nullish coalescing to handle undefined
 
   return (
     <div className="min-h-screen">
@@ -79,7 +79,6 @@ export default function SubcategoryPage({ params }: { params: { category: string
       <div className="container mx-auto px-4 py-12">
         <section className="mb-16">
           <h2 className="text-3xl font-bold mb-8">Songs</h2>
-          {/* Pass the fallback songs array */}
           <SongList songs={songs} />
         </section>
 
