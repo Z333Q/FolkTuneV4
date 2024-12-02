@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { categories } from '@/lib/data/categories';
 import { SongList } from '@/components/explore/song-list';
-import { SubcategoryHero } from '@/components/explore/subcategory-hero';
+import SubcategoryHero from '@/components/explore/subcategory-hero';
 import { CulturalContext } from '@/components/explore/cultural-context';
 
 export async function generateMetadata({ params }: { params: { category: string; subcategory: string } }): Promise<Metadata> {
