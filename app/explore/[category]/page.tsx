@@ -70,7 +70,7 @@ export default function SubcategoryPage({ params }: { params: { category: string
   }
 
   // Enforce a fallback to ensure songs is always an array
-  const songs: Song[] = subcategory.songs ?? []; // Nullish coalescing to handle undefined
+  const songs: Song[] = subcategory.songs ?? []; // Use an empty array if subcategory.songs is undefined
 
   return (
     <div className="min-h-screen">
@@ -79,6 +79,7 @@ export default function SubcategoryPage({ params }: { params: { category: string
       <div className="container mx-auto px-4 py-12">
         <section className="mb-16">
           <h2 className="text-3xl font-bold mb-8">Songs</h2>
+          {/* Pass the 'songs' variable, which is guaranteed to be an array */}
           <SongList songs={songs} />
         </section>
 
@@ -87,4 +88,3 @@ export default function SubcategoryPage({ params }: { params: { category: string
     </div>
   );
 }
-
