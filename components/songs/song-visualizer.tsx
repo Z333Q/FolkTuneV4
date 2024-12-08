@@ -26,7 +26,7 @@ export function SongVisualizer({ song }: SongVisualizerProps) {
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
 
-    let startTime = 0;
+let startTime: number = 0;
 
     const animate = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
