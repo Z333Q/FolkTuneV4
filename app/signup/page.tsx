@@ -1,8 +1,7 @@
-```tsx
 import { SignInButtons } from "@/components/auth/sign-in-buttons";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
-export default function SignUpPage() {
+const SignUpPage = () => {
   return (
     <div className="container flex items-center justify-center min-h-[calc(100vh-8rem)]">
       <Card className="w-full max-w-md">
@@ -18,5 +17,6 @@ export default function SignUpPage() {
       </Card>
     </div>
   );
-}
-```
+};
+
+export default SignUpPage;
