@@ -1,3 +1,4 @@
+let startTime: number = 0;
 "use client";
 
 import { useRef, useEffect } from "react";
