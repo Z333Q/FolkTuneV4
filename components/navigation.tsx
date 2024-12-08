@@ -1,58 +1,52 @@
 "use client";
 
-import Link from 'next/link';
-import { Music2 } from 'lucide-react';
-import { ModeToggle } from '@/components/mode-toggle';
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
-import { Button } from '@/components/ui/button';
+import Link from "next/link";
+import { MusicIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "./theme-toggle";
+import { AuthStatus } from "./auth/auth-status";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+
+const navigation = [
+  { name: "Explore", href: "/explore" },
+  { name: "Learn", href: "/learn" },
+  { name: "Practice", href: "/practice" },
+  { name: "Community", href: "/community" },
+];
 
 export function Navigation() {
+  const pathname = usePathname();
+
   return (
-    <header className="border-b">
-      <div className="container mx-auto px-4 py-3">
-        <div className="flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2">
-            <Music2 className="h-6 w-6" />
-            <span className="font-bold text-xl">FolkTune</span>
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex h-14 items-center">
+        <div className="mr-4 flex">
+          <Link href="/" className="mr-6 flex items-center space-x-2">
+            <MusicIcon className="h-6 w-6" />
+            <span className="font-bold">FolkTune</span>
           </Link>
-
-          <NavigationMenu>
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <Link href="/learn" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    Learn
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Link href="/explore" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    Explore
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Link href="/community" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    Community
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
-
+        </div>
+        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
+          <nav className="flex items-center space-x-6">
+            {navigation.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "text-sm font-medium transition-colors hover:text-primary",
+                  pathname === item.href
+                    ? "text-foreground"
+                    : "text-muted-foreground"
+                )}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </nav>
           <div className="flex items-center space-x-4">
-            <ModeToggle />
-            <Button variant="outline" asChild>
-              <Link href="/auth">Login</Link>
-            </Button>
+            <ThemeToggle />
+            <AuthStatus />
           </div>
         </div>
       </div>

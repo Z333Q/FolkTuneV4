@@ -1,15 +1,13 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { ThemeProvider } from '@/components/theme-provider';
-import { Navigation } from '@/components/navigation';
-import { AuthProvider } from '@/components/auth/auth-provider';
+import { Providers } from '@/components/providers';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'FolkTune - Learn Folk Music',
-  description: 'Learn folk music through interactive lessons and cultural context',
+  title: 'FolkTune - Learn Folk Songs from Around the World',
+  description: 'Discover, learn, and preserve traditional folk songs with advanced AI-powered feedback.',
 };
 
 export default function RootLayout({
@@ -20,14 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <AuthProvider>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <div className="min-h-screen bg-background">
-              <Navigation />
-              <main>{children}</main>
-            </div>
-          </ThemeProvider>
-        </AuthProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
