@@ -16,6 +16,44 @@ export function SongVisualizer({ song }: SongVisualizerProps) {
   const isPlayingRef = useRef(false);
   let startTime: number = 0;
 
+  const animate = (timestamp: number) => {
+    if (!startTime) startTime = timestamp;
+    const progress = timestamp - startTime;
+
+    const canvas = canvasRef.current;
+    if (canvas) {
+      const ctx = canvas.getContext("2d");
+      if (ctx) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw frequency bars
+        const barWidth = 4;
+        const gap = 2;
+        const totalBars = Math.floor(canvas.width / (barWidth + gap));
+
+        for (let i = 0; i < totalBars; i++) {
+          const x = i * (barWidth + gap);
+          const height =
+            Math.abs(Math.sin(progress * 0.002 + i * 0.2)) *
+            canvas.height *
+            0.8;
+          const y = (canvas.height - height) / 2;
+
+          const gradient = ctx.createLinearGradient(x, y, x, y + height);
+          gradient.addColorStop(0, "hsl(var(--primary))");
+          gradient.addColorStop(1, "hsl(var(--primary) / 0.5)");
+
+          ctx.fillStyle = gradient;
+          ctx.fillRect(x, y, barWidth, height);
+        }
+      }
+    }
+
+    if (isPlayingRef.current) {
+      animationRef.current = requestAnimationFrame(animate);
+    }
+  };
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -26,36 +64,6 @@ export function SongVisualizer({ song }: SongVisualizerProps) {
     // Set canvas size
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
-
-    const animate = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const progress = timestamp - startTime;
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Draw frequency bars
-      const barWidth = 4;
-      const gap = 2;
-      const totalBars = Math.floor(canvas.width / (barWidth + gap));
-
-      for (let i = 0; i < totalBars; i++) {
-        const x = i * (barWidth + gap);
-        const height =
-          Math.abs(Math.sin(progress * 0.002 + i * 0.2)) * canvas.height * 0.8;
-        const y = (canvas.height - height) / 2;
-
-        const gradient = ctx.createLinearGradient(x, y, x, y + height);
-        gradient.addColorStop(0, "hsl(var(--primary))");
-        gradient.addColorStop(1, "hsl(var(--primary) / 0.5)");
-
-        ctx.fillStyle = gradient;
-        ctx.fillRect(x, y, barWidth, height);
-      }
-
-      if (isPlayingRef.current) {
-        animationRef.current = requestAnimationFrame(animate);
-      }
-    };
 
     return () => {
       if (animationRef.current) {
