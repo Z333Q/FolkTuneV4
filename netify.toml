@@ -1,15 +1,8 @@
 [build]
-  # The command to build your project
-  command = "npm run build"
-
-  # The directory where the build output is located
-  publish = ".next"
-
-  # Set the Node version to match your local environment (optional but recommended)
-  environment = { NODE_VERSION = "18" }
+  command = "npm run build"  # Command to build the project
+  publish = ".next"          # Directory to publish
 
 [[redirects]]
-  # Redirect /learn to the generated static file or dynamic route
-  from = "/learn"
-  to = "/learn.html"
+  from = "/*"
+  to = "/index.html"
   status = 200
