@@ -1,4 +1,3 @@
-let startTime: number = 0;
 "use client";
 
 import { useRef, useEffect } from "react";
@@ -15,6 +14,7 @@ export function SongVisualizer({ song }: SongVisualizerProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number>();
   const isPlayingRef = useRef(false);
+  let startTime: number = 0;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -27,28 +27,27 @@ export function SongVisualizer({ song }: SongVisualizerProps) {
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
 
-let startTime: number = 0;
-
     const animate = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
       const progress = timestamp - startTime;
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
+
       // Draw frequency bars
       const barWidth = 4;
       const gap = 2;
       const totalBars = Math.floor(canvas.width / (barWidth + gap));
-      
+
       for (let i = 0; i < totalBars; i++) {
         const x = i * (barWidth + gap);
-        const height = Math.abs(Math.sin((progress * 0.002) + (i * 0.2))) * canvas.height * 0.8;
+        const height =
+          Math.abs(Math.sin(progress * 0.002 + i * 0.2)) * canvas.height * 0.8;
         const y = (canvas.height - height) / 2;
-        
+
         const gradient = ctx.createLinearGradient(x, y, x, y + height);
         gradient.addColorStop(0, "hsl(var(--primary))");
         gradient.addColorStop(1, "hsl(var(--primary) / 0.5)");
-        
+
         ctx.fillStyle = gradient;
         ctx.fillRect(x, y, barWidth, height);
       }
@@ -67,7 +66,7 @@ let startTime: number = 0;
 
   const togglePlayback = () => {
     isPlayingRef.current = !isPlayingRef.current;
-    
+
     if (isPlayingRef.current) {
       animationRef.current = requestAnimationFrame((timestamp) => {
         startTime = timestamp;
@@ -96,29 +95,21 @@ let startTime: number = 0;
         <div className="flex items-center justify-between">
           <CardTitle>Song Visualization</CardTitle>
           <div className="flex gap-2">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={togglePlayback}
-            >
+            <Button variant="outline" size="icon" onClick={togglePlayback}>
               {isPlayingRef.current ? (
                 <Pause className="h-4 w-4" />
               ) : (
                 <Play className="h-4 w-4" />
               )}
             </Button>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={resetVisualization}
-            >
+            <Button variant="outline" size="icon" onClick={resetVisualization}>
               <RotateCcw className="h-4 w-4" />
             </Button>
           </div>
         </div>
       </CardHeader>
       <CardContent>
-        <canvas 
+        <canvas
           ref={canvasRef}
           className="w-full h-[200px] bg-muted rounded-lg"
         />
