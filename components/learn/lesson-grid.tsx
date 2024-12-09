@@ -1,8 +1,10 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Clock, Music2, Star } from "lucide-react";
 import Link from "next/link";
 
+// Placeholder data for demo purposes
 const lessons = [
   {
     id: 1,

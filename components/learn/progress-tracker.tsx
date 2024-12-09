@@ -1,7 +1,9 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Award, BookOpen, Clock } from "lucide-react";
+import { Award, Clock } from "lucide-react";
 
+// Placeholder data for demo purposes
 const progress = {
   lessonsCompleted: 5,
   totalLessons: 12,
