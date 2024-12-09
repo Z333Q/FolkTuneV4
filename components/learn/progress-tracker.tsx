@@ -23,9 +23,9 @@ export function ProgressTracker() {
               {progress.lessonsCompleted}/{progress.totalLessons} lessons
             </div>
           </div>
-          <Progress value={(progress.lessonsCompleted / progress.totalLessons) * 100} />
+          <Progress value={(progress.lessonsCompleted / progress.totalLessons) * 100 || 0} />
         </div>
-        
+
         <div className="grid grid-cols-2 gap-4">
           <div className="flex flex-col items-center p-4 bg-muted rounded-lg">
             <Clock className="h-5 w-5 mb-2 text-primary" />

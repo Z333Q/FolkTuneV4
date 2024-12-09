@@ -45,7 +45,7 @@ export function LessonGrid() {
             <div className="flex items-start justify-between">
               <div>
                 <CardTitle className="text-lg">{lesson.title}</CardTitle>
-                <Link 
+                <Link
                   href={`/songs/${lesson.songId}`}
                   className="text-primary hover:underline mt-1 block"
                 >
